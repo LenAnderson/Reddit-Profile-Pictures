@@ -2,10 +2,10 @@
 // @name         Reddit - Profile Pictures
 // @namespace    https://github.com/LenAnderson/
 // @downloadURL  https://github.com/LenAnderson/Reddit-Profile-Pictures/raw/master/reddit_profile_pictures.user.js
-// @version      1.0
+// @version      1.1
 // @description  Show profile pictures on reddit.
 // @author       LenAnderson
-// @match        https://www.reddit.com/*
+// @match        https://www.reddit.com/r/*/comments/*
 // @grant        none
 // ==/UserScript==
 
