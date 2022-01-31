@@ -2,7 +2,7 @@
 // @name         Reddit - Profile Pictures
 // @namespace    https://github.com/LenAnderson/
 // @downloadURL  https://github.com/LenAnderson/Reddit-Profile-Pictures/raw/master/reddit_profile_pictures.user.js
-// @version      1.2
+// @version      1.3
 // @description  Show profile pictures on reddit.
 // @author       LenAnderson
 // @match        https://www.reddit.com/r/*/comments/*
@@ -13,8 +13,7 @@
     'use strict';
 
     const addAvatars = async(root=document)=>{
-		Array.from(root.querySelectorAll('.thing')).forEach(async(thing)=>{
-			const a = thing.querySelector(`#${thing.id} > .entry > .tagline > .author`);
+		Array.from(root.querySelectorAll('.thing:not(.morechildren)')).forEach(async(thing)=>{
 			if (!thing) return;
 			if (thing.hasAttribute('data-reddit-profile-picture')) return;
 			const img = document.createElement('img'); {
@@ -26,6 +25,8 @@
 				thing.insertBefore(img, thing.querySelector('.entry'));
 			}
 			thing.setAttribute('data-reddit-profile-picture', 1);
+			if (!thing.id) return;
+			const a = thing.querySelector(`#${thing.id} > .entry > .tagline > .author`);
 			if (a && a.href) {
 				const xhr = new XMLHttpRequest();
 				xhr.open('GET', `${a.href}/about.json`);
@@ -45,7 +46,7 @@
 		muts.forEach(mut=>{
 			Array.from(mut.addedNodes).forEach(node=>{
 				if (node instanceof HTMLElement) {
-					addAvatars(node);
+					addAvatars();
 				}
 			});
 		});
